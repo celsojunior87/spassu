@@ -19,8 +19,8 @@ class LivroService implements LivroInterface
     public function getAll()
     {
         try {
-            $livro = Livro::all();
-            return $this->success("Listagem de Livros", $livro);
+            $Livro = Livro::all();
+            return $this->success("Listagem de Livros", $Livro);
         } catch (\Exception $e) {
             return $this->error($e->getMessage(), 404);
         }
@@ -31,22 +31,22 @@ class LivroService implements LivroInterface
     {
         DB::beginTransaction();
         try {
-            $livro = new Livro();
-            $livro->Titulo = $request->Titulo;
-            $livro->Editora = $request->Editora;
-            $livro->Edicao = $request->Edicao;
-            $livro->AnoPublicacao = $request->AnoPublicacao;
-            $livro->Valor = $request->Valor;
-            $livro->save();
+            $Livro = new Livro();
+            $Livro->Titulo = $request->Titulo;
+            $Livro->Editora = $request->Editora;
+            $Livro->Edicao = $request->Edicao;
+            $Livro->AnoPublicacao = $request->AnoPublicacao;
+            $Livro->Valor = $request->Valor;
+            $Livro->save();
 
             $LivroAutor = new LivroAutor();
-            $LivroAutor->Livro_Codl = $livro->id;
+            $LivroAutor->Livro_Codl = $Livro->id;
             $LivroAutor->save();
 
             DB::commit();
             return $this->success(
                  "Livro Criado com sucesso",
-                 $livro,
+                $Livro,
                  200);
         } catch (\Exception $e) {
             DB::rollBack();
@@ -58,9 +58,13 @@ class LivroService implements LivroInterface
     public function update(LivroRequest $request, $id)
     {
         try {
-            $livro = Livro::findOrFail($id);
-            if (!$livro) return $this->error("Não Existe o Livro para ser atualizado", 404);
-            return $livro->update($request->all());
+            $Livro = Livro::findorFail($id);
+            if (!$Livro) return $this->error("Não Existe o Livro para ser atualizado", 404);
+            $Livro->update($request->all());
+            return $this->success(
+                "Livro Atualizado com sucesso",
+                $Livro,
+                200);
         } catch (\Exception $e) {
             return $this->error($e->getMessage(), 404);
         }
@@ -70,10 +74,10 @@ class LivroService implements LivroInterface
    public function destroy($id)
    {
        try {
-           $livro = Livro::where('id',$id);
-           if (!$livro) return $this->error("Não Existe o Livro $id", 404);
-           $livro->delete();
-           return $this->success("Livro deletado com Sucesso", $livro);
+           $Livro = Livro::where('id',$id);
+           if (!$Livro) return $this->error("Não Existe o Livro $id", 404);
+           $Livro->delete();
+           return $this->success("Livro deletado com Sucesso", $Livro);
        } catch (\Exception $e) {
            return $this->error($e->getMessage(), $e->getCode());
        }
