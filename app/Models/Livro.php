@@ -4,7 +4,19 @@
 namespace App\Models;
 
 
-class Livro
+use Illuminate\Database\Eloquent\Model;
+
+class Livro extends Model
 {
+    protected $table = 'Livro';
+    public $timestamps = false;
+
+    protected $fillable = [
+        'Titulo',
+        'Editora',
+        'Edicao',
+        'AnoPublicacao',
+        'Valor'
+    ];
 
 }
