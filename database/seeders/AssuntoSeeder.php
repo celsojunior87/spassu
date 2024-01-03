@@ -6,7 +6,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class AutorSeeder extends Seeder
+class AssuntoSeeder extends Seeder
 {
     /**
      * Seed the application's database.
@@ -15,16 +15,15 @@ class AutorSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
 
-        DB::table('Autor')->insert([
-            'Nome' => 'Machado de Assis',
+        DB::table('Assunto')->insert([
+            'Descricao' => 'Julgamento',
         ]);
-        DB::table('Autor')->insert([
-            'Nome' => 'William Shakespeare',
+        DB::table('Assunto')->insert([
+            'Descricao' => 'Sobrevivência',
         ]);
-        DB::table('Autor')->insert([
-            'Nome' => 'Luís de Camões',
+        DB::table('Assunto')->insert([
+            'Descricao' => 'Amor',
         ]);
     }
 }
